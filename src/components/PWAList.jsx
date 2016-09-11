@@ -16,38 +16,47 @@
 
 import React from 'react';
 
-import {
-  Link,
-} from 'react-router';
-
-import LoginBar from './LoginBar';
-
-export default function Shell(props) {
+export default function PWAList(props) {
   const {
-    children,
+    pwas = [],
   } = props;
 
   return (
-    <div>
-      <header>
-        <h1>
-          <Link to = '/'>
-            Gulliver
-          </Link>
-        </h1>
-        
-        <h2>
-          <Link to = '/'>
-            PWA Directory
-          </Link>
-        </h2>
-      </header>
+    <ul>
+      {
+        pwas.map(
+          pwa => (
+            <PWAListItem 
+              model = { pwa }
+            />
+          )
+        )
+      }
+    </ul>
+  );
+}
 
-      <LoginBar />
+function PWAListItem(props) {
+  const {
+    model,
+  } = props;
 
-      <div>
-        { children }
+  return (
+    <li>
+      <div
+        style = {
+          {
+            width: 56,
+            height: 56,
+            borderRadius: 28,
+            backgroundColor: '#666666',
+          }
+        }
+      >
+        { /* images go here */ }
       </div>
-    </div>
+
+      { model.manifestURL }
+    </li>
   );
 }

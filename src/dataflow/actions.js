@@ -14,29 +14,27 @@
  *  under the License.
  */
 
-@import url("./reset.css");
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
+// Quick-and-dirty action that calls Firebase directly.  Can always be 
+// abstracted away with Redux.
 
-a:hover {
-  text-decoration: underline;
-}
+import {
+  default as firebase,
+  pwasPath,
+} from './firebase';
 
-header {
-  align-items: center;
-  padding: 16px;
-  background-color: #424242;
-  color: #FFFFFF;
-}
+export function registerPWA({ manifestURL }) {
+  // To avoid duplication, hash the manifest URL and store this entity as that
+  // location.
+  //
+  // TODO(amedina):
+  // - Check if there is already a entity at that key and respond accordingly
 
-.LoginBar {
-  width: 100vw;
-  height: 48px;
-  padding: 16px;
-  font-size: 16px;
-  background-color: #757575;
-  color: white;
+  const key = btoa(manifestURL);
+
+  firebase.database().ref(pwasPath + key).set(
+    {
+      manifestURL
+    }
+  );
 }

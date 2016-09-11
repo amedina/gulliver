@@ -14,29 +14,17 @@
  *  under the License.
  */
 
-@import url("./reset.css");
+import {
+  initializeApp,
+} from 'firebase';
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
+export default initializeApp(
+  {
+    apiKey: "AIzaSyAkoVjSK392KfOyi35Fk1pdAEnvcCGRrLg",
+    authDomain: "google-com-gulliver.firebaseapp.com",
+    databaseURL: "https://google-com-gulliver.firebaseio.com",
+    storageBucket: "gulliver.google.com.a.appspot.com",
+  }
+);
 
-a:hover {
-  text-decoration: underline;
-}
-
-header {
-  align-items: center;
-  padding: 16px;
-  background-color: #424242;
-  color: #FFFFFF;
-}
-
-.LoginBar {
-  width: 100vw;
-  height: 48px;
-  padding: 16px;
-  font-size: 16px;
-  background-color: #757575;
-  color: white;
-}
+export const pwasPath = 'pwas/';

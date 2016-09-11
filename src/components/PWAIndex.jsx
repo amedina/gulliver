@@ -14,29 +14,29 @@
  *  under the License.
  */
 
-@import url("./reset.css");
+import React from 'react';
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
+import {
+  Link,
+} from 'react-router';
 
-a:hover {
-  text-decoration: underline;
-}
+import Provider from '../dataflow/Provider';
+import PWAList from './PWAList';
 
-header {
-  align-items: center;
-  padding: 16px;
-  background-color: #424242;
-  color: #FFFFFF;
-}
+export default function PWAIndex(props) {
+  const {
 
-.LoginBar {
-  width: 100vw;
-  height: 48px;
-  padding: 16px;
-  font-size: 16px;
-  background-color: #757575;
-  color: white;
+  } = props;
+
+  return (
+    <div>
+      <Link to = '/register/'>
+        Register New PWA
+      </Link>
+
+      <Provider>
+        <PWAList />
+      </Provider>
+    </div>
+  );
 }

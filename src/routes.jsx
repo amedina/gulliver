@@ -21,7 +21,9 @@ import {
   Redirect,
 } from 'react-router';
 
+import RegisterPWA from './components/RegisterPWA';
 import Shell from './components/Shell';
+import PWAIndex from './components/PWAIndex';
 
 export default (
   <Route>
@@ -30,7 +32,12 @@ export default (
     >
       <Route
         path = '/'
-        component = { Home }
+        component = { PWAIndex }
+      />
+
+      <Route
+        path = '/register/'
+        component = { RegisterPWA }
       />
     </Route>
 
@@ -40,11 +47,3 @@ export default (
     />
   </Route>
 );
-
-function Home(props) {
-  return (
-    <div> 
-      hi from demo?!
-    </div>
-  );
-}
