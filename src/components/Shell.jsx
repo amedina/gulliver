@@ -25,6 +25,10 @@ import LoginBar from './LoginBar';
 export default function Shell(props) {
   const {
     children,
+
+    // Takes state from Provider and passes it into appropriate children
+    pwas,
+    user,
   } = props;
 
   return (
@@ -43,10 +47,20 @@ export default function Shell(props) {
         </h2>
       </header>
 
-      <LoginBar />
+      <LoginBar 
+        user = { user }
+      />
 
       <div>
-        { children }
+        { 
+          React.cloneElement(
+            children,
+            {
+              user,
+              pwas,
+            }
+          )
+        }
       </div>
     </div>
   );

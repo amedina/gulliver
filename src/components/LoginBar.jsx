@@ -14,14 +14,104 @@
  *  under the License.
  */
 
+
 import React from 'react';
+import firebase from 'firebase';
+
+import {
+  login,
+  logout,
+} from '../dataflow/actions';
+
+import Button from './Button';
+
+// You can prompt your users to sign in with their Google Accounts either 
+// by opening a pop-up window or by redirecting to the sign-in page. The redirect 
+// method is preferred on mobile devices.
+
+var provider = new firebase.auth.GoogleAuthProvider();
+var token = null;
 
 export default function LoginBar(props) {
+  const {
+    user,
+  } = props;
+
   return (
     <div
       className = 'LoginBar'
     >
-      LOGIN GOES HERE!!!
+      {
+        user
+          ? <LoggedInUserBar 
+              user = { user }
+            />
+          : <LoginButton />
+      }
     </div>
+  );
+}
+
+function LoggedInUserBar(props) {
+  const {
+    user,
+  } = props;
+
+  return (
+    <div
+      style = {
+        {
+          flexDirection: 'row',
+          justifyContent: 'flex-end',
+          alignItems: 'center',
+        }
+      }
+    >
+      <div
+        style = {
+          {
+            flexDirection: 'row',
+            alignItems: 'center',
+          }
+        }
+      >
+        <img 
+          style = {
+            {
+              width: 40,
+              height: 40,
+              borderRadius: 20,
+            }
+          }
+          src = { user.photoURL } 
+        />
+        <div
+          style = {
+            {
+              marginLeft: 8,
+              marginRight: 16,
+            }
+          }
+        >
+          { user.displayName }
+        </div>
+      </div>
+
+      <Button
+        onClick = { logout }
+      >
+        Logout
+      </Button>
+    </div>
+  );
+}
+
+function LoginButton(props) {
+  return (
+    <Button 
+      onClick = { login }
+    >
+      Login
+    </Button>
   );
 }

@@ -18,8 +18,10 @@
 // Quick-and-dirty action that calls Firebase directly.  Can always be 
 // abstracted away with Redux.
 
+import firebase from 'firebase';
+
 import {
-  default as firebase,
+  default as firebaseApp,
   pwasPath,
 } from './firebase';
 
@@ -32,9 +34,21 @@ export function registerPWA({ manifestURL }) {
 
   const key = btoa(manifestURL);
 
-  firebase.database().ref(pwasPath + key).set(
+  firebaseApp.database().ref(pwasPath + key).set(
     {
       manifestURL
     }
+  );
+}
+
+export function login() {
+  firebase.auth().signInWithRedirect(
+    new firebase.auth.GoogleAuthProvider()
+  );
+}
+
+export function logout() {
+  firebase.auth().signOut().then(
+    // This should dispatch a Redux action that destroys store.user
   );
 }

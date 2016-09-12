@@ -20,12 +20,11 @@ import {
   Link,
 } from 'react-router';
 
-import Provider from '../dataflow/Provider';
 import PWAList from './PWAList';
 
 export default function PWAIndex(props) {
   const {
-
+    pwas,
   } = props;
 
   return (
@@ -34,9 +33,9 @@ export default function PWAIndex(props) {
         Register New PWA
       </Link>
 
-      <Provider>
-        <PWAList />
-      </Provider>
+      <PWAList 
+        pwas = { pwas }
+      />
     </div>
   );
 }

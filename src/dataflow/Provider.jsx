@@ -14,15 +14,16 @@
  *  under the License.
  */
 
-import React from 'react';
 import autoBind from 'react-autobind';
+import firebase from 'firebase';
+import React from 'react';
 
 import {
   Map as ImmutableMap,
 } from 'immutable';
 
 import {
-  default as firebase,
+  default as firebaseApp,
   pwasPath,
 } from './firebase';
 
@@ -30,8 +31,10 @@ import {
 // Redux
 
 export default class Provider extends React.Component {
-  state = {}
-  firebasePWAsRef = firebase.database().ref(pwasPath)
+  state = {
+    store: {}
+  }
+  firebasePWAsRef = firebaseApp.database().ref(pwasPath)
 
   constructor() {
     super();
@@ -40,6 +43,30 @@ export default class Provider extends React.Component {
   }
   
   componentWillMount() {
+    firebase.auth().getRedirectResult().then(
+      result => {
+        this.setState(
+          {
+            store: {
+              ...this.state.store,
+              user: result.user,
+            }
+          }
+        );
+      }
+    ).catch(
+      error => {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // The email of the user's account used.
+        var email = error.email;
+        // The firebase.auth.AuthCredential type that was used.
+        var credential = error.credential;
+        // ...
+      }
+    );  
+
     this.firebasePWAsRef.on(
       'value',
       snapshot => {
@@ -48,6 +75,7 @@ export default class Provider extends React.Component {
         this.setState(
           {
             store: {
+              ...this.state.store,
               pwas: new ImmutableMap(pwasDict),
             }
           }

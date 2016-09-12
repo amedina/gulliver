@@ -21,24 +21,29 @@ import {
   Redirect,
 } from 'react-router';
 
+import Provider from './dataflow/Provider';
+import PWAIndex from './components/PWAIndex';
 import RegisterPWA from './components/RegisterPWA';
 import Shell from './components/Shell';
-import PWAIndex from './components/PWAIndex';
 
 export default (
   <Route>
     <Route
-      component = { Shell }
+      component = { Provider }
     >
       <Route
-        path = '/'
-        component = { PWAIndex }
-      />
+        component = { Shell }
+      >
+        <Route
+          path = '/'
+          component = { PWAIndex }
+        />
 
-      <Route
-        path = '/register/'
-        component = { RegisterPWA }
-      />
+        <Route
+          path = '/register/'
+          component = { RegisterPWA }
+        />
+      </Route>
     </Route>
 
     <Redirect
